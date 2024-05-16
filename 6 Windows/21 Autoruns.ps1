@@ -74,7 +74,8 @@ reg add "HKLM\SYSTEM\ControlSet001\Services\gupdate" /v "Start" /t REG_DWORD /d 
 reg add "HKLM\SYSTEM\ControlSet001\Services\gupdatem" /v "Start" /t REG_DWORD /d "4" /f | Out-Null
 # remove chrome tasks
 Get-ScheduledTask | Where-Object {$_.Taskname -match 'GoogleUpdateTaskMachineCore'} | Unregister-ScheduledTask -Confirm:$false
-Get-ScheduledTask | Where-Object {$_.Taskname -match 'GoogleUpdateTaskMachineUA'} | Unregister-ScheduledTask -Confirm:$false 
+Get-ScheduledTask | Where-Object {$_.Taskname -match 'GoogleUpdateTaskMachineUA'} | Unregister-ScheduledTask -Confirm:$false
+Get-ScheduledTask | Where-Object {$_.Taskname -match 'GoogleUpdaterTaskSystem'} | Unregister-ScheduledTask -Confirm:$false
 Clear-Host
 Write-Host "Installing: Autoruns . . ."
 # download autoruns
