@@ -36,3 +36,9 @@ The definitive Windows optimization guide for power users seeking to enhance the
 - "12 Registry.ps1" & "21 Autoruns.ps1" google services
 <br>GoogleUpdaterInternalService126.0.6462.0
 <br>GoogleUpdaterService126.0.6462.0
+
+## Guide
+https://youtu.be/PlACZ9Gp1xo <br>
+
+[![Video](https://img.youtube.com/vi/PlACZ9Gp1xo/maxresdefault.jpg)]([https://www.youtube.com/watch?v=jXnoFqcAkQA](https://youtu.be/PlACZ9Gp1xo))
+
