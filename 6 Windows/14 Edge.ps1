@@ -94,6 +94,7 @@ do { Start-Sleep 3 } while ((Get-Process -Name "setup", "MicrosoftEdge*" -ErrorA
 }
 # remove edgewebview regedit
 cmd /c "reg delete `"HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft EdgeWebView`" /f >nul 2>&1"
+cmd /c "reg delete `"HKCU\Software\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft EdgeWebView`" /f >nul 2>&1"
 # remove folders edge edgecore edgeupdate edgewebview temp
 Remove-Item -Recurse -Force "$env:C:\Program Files (x86)\Microsoft" -ErrorAction SilentlyContinue | Out-Null
 # remove edge shortcuts
