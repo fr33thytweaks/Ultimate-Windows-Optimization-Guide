@@ -1,7 +1,3 @@
-    If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"))
-    {Start-Process PowerShell.exe -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -File `"{0}`"" -f $PSCommandPath) -Verb RunAs
-    Exit}
-    $Host.UI.RawUI.WindowTitle = $myInvocation.MyCommand.Definition + " (Administrator)"
     $Host.UI.RawUI.BackgroundColor = "Black"
 	$Host.PrivateData.ProgressBackgroundColor = "Black"
     $Host.PrivateData.ProgressForegroundColor = "White"
@@ -41,13 +37,13 @@
     }
     }
 
+Write-Host "Secure Boot must be disabled in BIOS . . ."
+$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+Clear-Host
 Write-Host "Installing: hidusbf . . ."
 # download hidusbf
 Get-FileFromWeb -URL "https://raw.githubusercontent.com/LordOfMice/hidusbf/master/hidusbf.zip" -File "$env:TEMP\hidusbf.zip"
 # extract files
 Expand-Archive "$env:TEMP\hidusbf.zip" -DestinationPath "$env:TEMP\hidusbf" -ErrorAction SilentlyContinue
-Clear-Host
-Write-Host "Secure Boot & TPM must be disabled in BIOS . . ."
-$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 # start hidusbf
 Start-Process "$env:TEMP\hidusbf\DRIVER\Setup.exe"
