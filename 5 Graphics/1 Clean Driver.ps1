@@ -85,6 +85,8 @@ $MultilineComment = @"
 Set-Content -Path "$env:TEMP\DDU v18.0.7.6\Settings\Settings.xml" -Value $MultilineComment -Force
 # set config to read only
 Set-ItemProperty -Path "$env:TEMP\DDU v18.0.7.6\Settings\Settings.xml" -Name IsReadOnly -Value $true
+# prevent downloads of drivers from windows update
+reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\DriverSearching" /v "SearchOrderConfig" /t REG_DWORD /d "0" /f | Out-Null
 # create msconfig shortcut
 $WshShell = New-Object -comObject WScript.Shell
 $Shortcut = $WshShell.CreateShortcut("$Home\Desktop\Safe Mode Toggle.lnk")
