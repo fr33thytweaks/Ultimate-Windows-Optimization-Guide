@@ -169,6 +169,9 @@ Dism /Online /NoRestart /Disable-Feature /FeatureName:Printing-Foundation-Intern
 Dism /Online /NoRestart /Disable-Feature /FeatureName:MSRDC-Infrastructure | Out-Null
 # breaks search
 # Dism /Online /NoRestart /Disable-Feature /FeatureName:SearchEngine-Client-Package | Out-Null
+Dism /Online /NoRestart /Disable-Feature /FeatureName:SMB1Protocol | Out-Null
+Dism /Online /NoRestart /Disable-Feature /FeatureName:SMB1Protocol-Client | Out-Null
+Dism /Online /NoRestart /Disable-Feature /FeatureName:SMB1Protocol-Deprecation | Out-Null
 Dism /Online /NoRestart /Disable-Feature /FeatureName:SmbDirect | Out-Null
 Dism /Online /NoRestart /Disable-Feature /FeatureName:Windows-Identity-Foundation | Out-Null
 Dism /Online /NoRestart /Disable-Feature /FeatureName:MicrosoftWindowsPowerShellV2Root | Out-Null
@@ -388,6 +391,9 @@ Write-Host "-Microsoft XPS Document Writer"
 Write-Host "-Print and Document Services +"
 Write-Host "-Internet Printing Client"
 Write-Host "-Remote Differential Compression API Support"
+Write-Host "-SMB 1.0/CIFS File Sharing Support +"
+Write-Host "-SMB 1.0/CIFS Automatic Removal"
+Write-Host "-SMB 1.0/CIFS Client"
 Write-Host "-SMB Direct"
 Write-Host "-Windows PowerShell 2.0 +"
 Write-Host "-Windows PowerShell 2.0 Engine"
