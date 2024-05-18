@@ -19,6 +19,7 @@ The definitive Windows optimization guide for power users seeking to enhance the
 - Scripts are silent
 - Caters to all skill levels
 - Minimal file size
+- Open source
 - Portable
 
 ## Future Plans
