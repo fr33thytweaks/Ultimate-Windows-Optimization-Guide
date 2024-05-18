@@ -7,24 +7,24 @@
     $Host.PrivateData.ProgressForegroundColor = "White"
     Clear-Host
 
-# create startmenu shortcuts 1 in start menu
+# create start menu shortcuts 1 in start menu
 $WshShell = New-Object -comObject WScript.Shell
-$Shortcut = $WshShell.CreateShortcut("$env:ProgramData\Microsoft\Windows\Start Menu\Programs\StartMenu Shortcuts 1.lnk")
+$Shortcut = $WshShell.CreateShortcut("$env:ProgramData\Microsoft\Windows\Start Menu\Programs\Start Menu Shortcuts 1.lnk")
 $Shortcut.TargetPath = "$env:ProgramData\Microsoft\Windows\Start Menu\Programs"
 $Shortcut.Save()
-# create startmenu shortcuts 2 in start menu
+# create start menu shortcuts 2 in start menu
 $WshShell = New-Object -comObject WScript.Shell
-$Shortcut = $WshShell.CreateShortcut("$env:ProgramData\Microsoft\Windows\Start Menu\Programs\StartMenu Shortcuts 2.lnk")
+$Shortcut = $WshShell.CreateShortcut("$env:ProgramData\Microsoft\Windows\Start Menu\Programs\Start Menu Shortcuts 2.lnk")
 $Shortcut.TargetPath = "$env:AppData\Microsoft\Windows\Start Menu\Programs"
 $Shortcut.Save()
 # create startup programs 1 in start menu
 $WshShell = New-Object -comObject WScript.Shell
-$Shortcut = $WshShell.CreateShortcut("$env:ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp Programs 1.lnk")
+$Shortcut = $WshShell.CreateShortcut("$env:ProgramData\Microsoft\Windows\Start Menu\Programs\Startup Programs 1.lnk")
 $Shortcut.TargetPath = "$env:AppData\Microsoft\Windows\Start Menu\Programs\Startup"
 $Shortcut.Save()
 # create startup programs 2 in start menu
 $WshShell = New-Object -comObject WScript.Shell
-$Shortcut = $WshShell.CreateShortcut("$env:ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp Programs 2.lnk")
+$Shortcut = $WshShell.CreateShortcut("$env:ProgramData\Microsoft\Windows\Start Menu\Programs\Startup Programs 2.lnk")
 $Shortcut.TargetPath = "$env:ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp"
 $Shortcut.Save()
 # open startmenu shortcuts 1 location
