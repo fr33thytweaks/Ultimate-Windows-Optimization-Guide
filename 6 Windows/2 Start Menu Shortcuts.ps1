@@ -27,7 +27,7 @@ $WshShell = New-Object -comObject WScript.Shell
 $Shortcut = $WshShell.CreateShortcut("$env:ProgramData\Microsoft\Windows\Start Menu\Programs\Startup Programs 2.lnk")
 $Shortcut.TargetPath = "$env:ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp"
 $Shortcut.Save()
-# open startmenu shortcuts 1 location
+# open start menu shortcuts 1 location
 Start-Process "$env:ProgramData\Microsoft\Windows\Start Menu\Programs"
-# open startmenu shortcuts 2 location
+# open start menu shortcuts 2 location
 Start-Process "$env:AppData\Microsoft\Windows\Start Menu\Programs"
