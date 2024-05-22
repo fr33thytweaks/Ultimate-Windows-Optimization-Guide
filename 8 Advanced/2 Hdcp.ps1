@@ -22,7 +22,7 @@ $subkeys = (Get-ChildItem -Path "Registry::HKLM\SYSTEM\CurrentControlSet\Control
 foreach($key in $subkeys){
 if ($key -notlike '*Configuration'){
 # disable hdcp regedit
-reg add "$key" /v "RMHdcpKeyglobZero" /t REG_DWORD /d "0" /f | Out-Null
+reg add "$key" /v "RMHdcpKeyglobZero" /t REG_DWORD /d "1" /f | Out-Null
 }
 }
 Clear-Host
@@ -47,7 +47,7 @@ $subkeys = (Get-ChildItem -Path "Registry::HKLM\SYSTEM\CurrentControlSet\Control
 foreach($key in $subkeys){
 if ($key -notlike '*Configuration'){
 # enable hdcp regedit
-reg add "$key" /v "RMHdcpKeyglobZero" /t REG_DWORD /d "1" /f | Out-Null
+reg add "$key" /v "RMHdcpKeyglobZero" /t REG_DWORD /d "0" /f | Out-Null
 }
 }
 Clear-Host
