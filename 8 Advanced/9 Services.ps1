@@ -50,15 +50,15 @@
     1 {
 
 Clear-Host
-Write-Host "This script does not support Wi-Fi."
-Write-Host "If your PC depends on Wi-Fi, please close this window!"
+Write-Host "This script does not support Wi-Fi & Bluetooth." -ForegroundColor Red
+Write-Host "If your PC depends on Wi-Fi or Bluetooth, please close this window!" -ForegroundColor Red
 Write-Host ""
-Write-Host "This script will intentionally run minimal services."
-Write-Host "Certain programs, settings and options may encounter issues or fail to run."
-Write-Host "If you experience any problems, please switch back to (Services: Default)."
+Write-Host "This script will intentionally run minimal services." -ForegroundColor Red
+Write-Host "Certain programs, settings and options may encounter issues or fail to run." -ForegroundColor Red
+Write-Host "If you experience any problems, please switch back to (Services: Default)." -ForegroundColor Red
 Write-Host ""
-Write-Host "If Windows fails to boot or log in after applying this script," 
-Write-Host "please access your restore point from the advanced setup recovery menu."
+Write-Host "If Windows fails to boot or log in after applying this script," -ForegroundColor Red
+Write-Host "please access your restore point from the advanced setup recovery menu." -ForegroundColor Red
 Write-Host ""
 Pause
 Clear-Host
@@ -83,12 +83,13 @@ $MultilineComment = @"
 Windows Registry Editor Version 5.00
 
 ; W10 & W11 SERVICES OFF
-; nvidia services included.
-; defender, amd & igpu services left out.
+; graphic driver & defender services left out.
 ; seclogon left out, as it will always enable itself. (can disable).
 ; appxsvc & TextInputManagementService left out, needed for w11. (w10 can disable).
 ; SENS & gpsvc left out, needed for multiple account logins. (single account can disable).
+; Schedule left out, needed for MSI Afterburner to apply GPU overclocks on startup. (can disable).
 ; TermService, KeyIso, NgcCtnrSvc & NgcSvc left out, needed for microsoft account login. (local account can disable).
+; camsvc & netprofm left out, needed for mic to work. (can disable. camsvc & netprofm both need to be manual on w11. w10 can run camsvc independently)
 
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\AarSvc]
 "Start"=dword:00000004
@@ -147,6 +148,9 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\BluetoothUserService]
 "Start"=dword:00000004
 
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Browser]
+"Start"=dword:00000004
+
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\BrokerInfrastructure]
 "Start"=dword:00000002
 
@@ -160,7 +164,7 @@ Windows Registry Editor Version 5.00
 "Start"=dword:00000004
 
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\camsvc]
-"Start"=dword:00000004
+"Start"=dword:00000003
 
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\CaptureService]
 "Start"=dword:00000004
@@ -318,13 +322,13 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\FontCache]
 "Start"=dword:00000004
 
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\FontCache3.0.0.0]
+"Start"=dword:00000004
+
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\FrameServerMonitor]
 "Start"=dword:00000004
 
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\FrameServer]
-"Start"=dword:00000004
-
-[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\FvSvc]
 "Start"=dword:00000004
 
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\GameInputSvc]
@@ -445,7 +449,7 @@ Windows Registry Editor Version 5.00
 "Start"=dword:00000003
 
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\netprofm]
-"Start"=dword:00000004
+"Start"=dword:00000003
 
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\NetSetupSvc]
 "Start"=dword:00000003
@@ -467,12 +471,6 @@ Windows Registry Editor Version 5.00
 
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\nsi]
 "Start"=dword:00000002
-
-[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\NvContainerLocalSystem]
-"Start"=dword:00000004
-
-[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\NVDisplay.ContainerLocalSystem]
-"Start"=dword:00000004
 
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\OneSyncSvc]
 "Start"=dword:00000004
@@ -577,7 +575,7 @@ Windows Registry Editor Version 5.00
 "Start"=dword:00000004
 
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Schedule]
-"Start"=dword:00000004
+"Start"=dword:00000002
 
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\SCPolicySvc]
 "Start"=dword:00000004
@@ -932,7 +930,7 @@ $MultilineComment = @"
 Windows Registry Editor Version 5.00
 
 ; W10 & W11 SERVICES ON
-; defender services left out
+; graphic driver & defender services left out.
 
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\AarSvc]
 "Start"=dword:00000003
@@ -989,6 +987,9 @@ Windows Registry Editor Version 5.00
 "Start"=dword:00000002
 
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\BluetoothUserService]
+"Start"=dword:00000003
+
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Browser]
 "Start"=dword:00000003
 
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\BrokerInfrastructure]
@@ -1162,13 +1163,13 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\FontCache]
 "Start"=dword:00000002
 
+[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\FontCache3.0.0.0]
+"Start"=dword:00000003
+
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\FrameServerMonitor]
 "Start"=dword:00000003
 
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\FrameServer]
-"Start"=dword:00000003
-
-[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\FvSvc]
 "Start"=dword:00000003
 
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\GameInputSvc]
@@ -1310,12 +1311,6 @@ Windows Registry Editor Version 5.00
 "Start"=dword:00000003
 
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\nsi]
-"Start"=dword:00000002
-
-[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\NvContainerLocalSystem]
-"Start"=dword:00000002
-
-[HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\NVDisplay.ContainerLocalSystem]
 "Start"=dword:00000002
 
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\OneSyncSvc]
