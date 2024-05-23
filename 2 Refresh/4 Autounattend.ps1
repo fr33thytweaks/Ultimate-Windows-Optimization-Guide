@@ -15,11 +15,11 @@ $MultilineComment = @"
         <component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS"
             xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <InputLocale>0409:00000409</InputLocale>
-            <SystemLocale>en-US</SystemLocale>
-            <UILanguage>en-US</UILanguage>
-            <UILanguageFallback>en-US</UILanguageFallback>
-            <UserLocale>en-US</UserLocale>
+            <InputLocale>{LANG}</InputLocale>
+            <SystemLocale>{LANG}</SystemLocale>
+            <UILanguage>{LANG}</UILanguage>
+            <UILanguageFallback>{LANG}</UILanguageFallback>
+            <UserLocale>{LANG}</UserLocale>
         </component>
         <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS"
             xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State"
@@ -43,7 +43,7 @@ $MultilineComment = @"
                 <LocalAccounts>
                     <LocalAccount wcm:action="add">
                         <Group>Administrators</Group>
-                        <Name>@</Name>
+                        <Name>{USERNAME}</Name>
                         <Password>
                             <PlainText>true</PlainText>
                             <Value></Value>
@@ -65,12 +65,12 @@ $MultilineComment = @"
                 </RunSynchronousCommand>
                 <RunSynchronousCommand wcm:action="add">
                     <Order>2</Order>
-                    <Path>net user @ /active:Yes</Path>
+                    <Path>net user {USERNAME} /active:Yes</Path>
                     <WillReboot>Never</WillReboot>
                 </RunSynchronousCommand>
                 <RunSynchronousCommand wcm:action="add">
                     <Order>3</Order>
-                    <Path>net user @ /passwordreq:no</Path>
+                    <Path>net user {USERNAME} /passwordreq:no</Path>
                     <WillReboot>Never</WillReboot>
                 </RunSynchronousCommand>
             </RunSynchronous>
@@ -92,13 +92,13 @@ $MultilineComment = @"
         <component name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS"
             xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <InputLocale>0409:00000409</InputLocale>
-            <SystemLocale>en-US</SystemLocale>
-            <UILanguage>en-US</UILanguage>
-            <UILanguageFallback>en-US</UILanguageFallback>
-            <UserLocale>en-US</UserLocale>
+            <InputLocale>{LANG}</InputLocale>
+            <SystemLocale>{LANG}</SystemLocale>
+            <UILanguage>{LANG}</UILanguage>
+            <UILanguageFallback>{LANG}</UILanguageFallback>
+            <UserLocale>{LANG}</UserLocale>
             <SetupUILanguage>
-                <UILanguage>en-US</UILanguage>
+                <UILanguage>{LANG}</UILanguage>
             </SetupUILanguage>
         </component>
         <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS"
@@ -148,19 +148,61 @@ $MultilineComment = @"
     </settings>
 </unattend>
 "@
-Set-Content -Path "$env:TEMP\autounattend.xml" -Value $MultilineComment -Force
-# user input change account name in autounattend
+# Save the XML template to a temporary file
 $path = "$env:TEMP\autounattend.xml"
-$username = Read-Host -prompt "Enter Account Name"
-(Get-Content $path) -replace "@",$username | out-file $path
-# convert file to utf8
+Set-Content -Path $path -Value $MultilineComment -Force
+
+# Input user for account name
+$username = Read-Host -Prompt "Enter Account Name"
+
+# Input user for language selection
+Clear-Host
+$languageOptions = @("fr-FR", "en-US", "es-ES", "de-DE", "it-IT", "ja-JP", "ko-KR", "pt-BR", "ru-RU", "zh-CN")
+$languagePrompt = "Please choose the language of the installed Windows operating system using the corresponding index:`n"
+for ($i = 0; $i -lt $languageOptions.Count; $i++) {
+    $languagePrompt += "$($i + 1). $($languageOptions[$i])`n"
+}
+$language = Read-Host -Prompt $languagePrompt
+
+# Verify if the language selected is right in the list
+while ($language -notin 1..$languageOptions.Count) {
+    Write-Host "Invalid choice. Please enter a valid number corresponding to the desired language."
+    $language = Read-Host -Prompt $languagePrompt
+}
+$selectedLanguage = $languageOptions[$language - 1]
+
+# Input user to choose if he/she wants a password
+Clear-Host
+$setPassword = Read-Host -Prompt "Do you want to set a password? (Y/N)"
+
+# Check if he/she wants a password
+while ($setPassword -ne "Y" -and $setPassword -ne "N") {
+    Write-Host "Invalid choice. Please enter 'Y' for Yes or 'N' for No."
+    $setPassword = Read-Host -Prompt "Do you want to set a password? (Y/N)"
+}
+
+if ($setPassword -eq "Y") {
+    $password = Read-Host -Prompt "Enter the password"
+    # Replace the placeholder with the entered password in the XML
+    (Get-Content $path) -replace "<Value></Value>", "<Value>$password</Value>" | Set-Content -Path $path -Force
+}
+
+
+# Replace placeholders in the XML template with user inputs
+(Get-Content $path) -replace "{USERNAME}", $username -replace "{LANG}", $selectedLanguage | Set-Content -Path $path -Force
+
+# Convert file to utf8
 Get-Content "$env:TEMP\autounattend.xml" | Set-Content -Encoding utf8 "$env:C:\Windows\Temp\autounattend.xml" -Force
-# delete old autounattend file
-Remove-Item -Path "$env:TEMP\autounattend.xml" -Force | Out-Null
-# user input move autounattend to USB
+
+# Delete the old autounattend file
+Remove-Item -Path $path -Force | Out-Null
+
+# User input move autounattend to USB
+Clear-Host
 $file = "$env:C:\Windows\Temp\autounattend.xml"
 $destination = Read-Host -prompt "Enter USB Drive Letter" 
 $destination += ":\"
 Move-Item -Path $file -Destination $destination -Force
-# open USB directory to confirm
+
+# Open USB directory to confirm
 Start-Process $destination
