@@ -37,7 +37,7 @@
     }
     }
 
-Write-Host "Secure Boot must be disabled in BIOS . . ."
+Write-Host "Disable secure boot in BIOS and delete secure boot keys . . ." -ForegroundColor Red
 $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 Clear-Host
 Write-Host "Installing: hidusbf . . ."
@@ -45,5 +45,13 @@ Write-Host "Installing: hidusbf . . ."
 Get-FileFromWeb -URL "https://raw.githubusercontent.com/LordOfMice/hidusbf/master/hidusbf.zip" -File "$env:TEMP\hidusbf.zip"
 # extract files
 Expand-Archive "$env:TEMP\hidusbf.zip" -DestinationPath "$env:TEMP\hidusbf" -ErrorAction SilentlyContinue
+Clear-Host
+Write-Host "Install certificate . . ."
+$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+# start sweetlow.cer
+Start-Process "$env:TEMP\hidusbf\SweetLow.CER"
+Clear-Host
+Write-Host "Overclock controller . . ."
+$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 # start hidusbf
 Start-Process "$env:TEMP\hidusbf\DRIVER\Setup.exe"
