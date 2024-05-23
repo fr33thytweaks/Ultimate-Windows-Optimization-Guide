@@ -58,22 +58,22 @@
     1 {
 
 Clear-Host
-Write-Host "This script intentionally disables all Windows Security:"
-Write-Host "-Defender Windows Security Settings"
-Write-Host "-Smartscreen"
-Write-Host "-Defender Services"
-Write-Host "-Defender Drivers"
-Write-Host "-Windows Defender Firewall"
-Write-Host "-User Account Control"
-Write-Host "-Spectre Meltdown"
-Write-Host "-Data Execution Prevention"
-Write-Host "-Powershell Script Execution"
-Write-Host "-Open File Security Warning"
-Write-Host "-Windows Defender Default Definitions"
-Write-Host "-Windows Defender Applicationguard"
+Write-Host "This script intentionally disables all Windows Security:" -ForegroundColor Red
+Write-Host "-Defender Windows Security Settings" -ForegroundColor Red
+Write-Host "-Smartscreen" -ForegroundColor Red
+Write-Host "-Defender Services" -ForegroundColor Red
+Write-Host "-Defender Drivers" -ForegroundColor Red
+Write-Host "-Windows Defender Firewall" -ForegroundColor Red
+Write-Host "-User Account Control" -ForegroundColor Red
+Write-Host "-Spectre Meltdown" -ForegroundColor Red
+Write-Host "-Data Execution Prevention" -ForegroundColor Red
+Write-Host "-Powershell Script Execution" -ForegroundColor Red
+Write-Host "-Open File Security Warning" -ForegroundColor Red
+Write-Host "-Windows Defender Default Definitions" -ForegroundColor Red
+Write-Host "-Windows Defender Applicationguard" -ForegroundColor Red
 Write-Host ""
-Write-Host "This will leave the PC completely vulnerable."
-Write-Host "If uncomfortable, please close this window!"
+Write-Host "This will leave the PC completely vulnerable." -ForegroundColor Red
+Write-Host "If uncomfortable, please close this window!" -ForegroundColor Red
 Write-Host ""
 Pause
 Clear-Host
@@ -522,22 +522,22 @@ exit
     2 {
 
 Clear-Host
-Write-Host "This script intentionally disables all Windows Security:"
-Write-Host "-Defender Windows Security Settings"
-Write-Host "-Smartscreen"
-Write-Host "-Defender Services"
-Write-Host "-Defender Drivers"
-Write-Host "-Windows Defender Firewall"
-Write-Host "-User Account Control"
-Write-Host "-Spectre Meltdown"
-Write-Host "-Data Execution Prevention"
-Write-Host "-Powershell Script Execution"
-Write-Host "-Open File Security Warning"
-Write-Host "-Windows Defender Default Definitions"
-Write-Host "-Windows Defender Applicationguard"
+Write-Host "This script intentionally disables all Windows Security:" -ForegroundColor Red
+Write-Host "-Defender Windows Security Settings" -ForegroundColor Red
+Write-Host "-Smartscreen" -ForegroundColor Red
+Write-Host "-Defender Services" -ForegroundColor Red
+Write-Host "-Defender Drivers" -ForegroundColor Red
+Write-Host "-Windows Defender Firewall" -ForegroundColor Red
+Write-Host "-User Account Control" -ForegroundColor Red
+Write-Host "-Spectre Meltdown" -ForegroundColor Red
+Write-Host "-Data Execution Prevention" -ForegroundColor Red
+Write-Host "-Powershell Script Execution" -ForegroundColor Red
+Write-Host "-Open File Security Warning" -ForegroundColor Red
+Write-Host "-Windows Defender Default Definitions" -ForegroundColor Red
+Write-Host "-Windows Defender Applicationguard" -ForegroundColor Red
 Write-Host ""
-Write-Host "This will leave the PC completely vulnerable."
-Write-Host "If uncomfortable, please close this window!"
+Write-Host "This will leave the PC completely vulnerable." -ForegroundColor Red
+Write-Host "If uncomfortable, please close this window!" -ForegroundColor Red
 Write-Host ""
 Pause
 Clear-Host
