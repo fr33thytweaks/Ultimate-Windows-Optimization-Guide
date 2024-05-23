@@ -16,16 +16,16 @@
     1 {
 
 Clear-Host
-Write-Host "This script does not support Wi-Fi."
-Write-Host "If your PC depends on Wi-Fi, please close this window!"
+Write-Host "This script does not support Wi-Fi & Bluetooth." -ForegroundColor Red
+Write-Host "If your PC depends on Wi-Fi or Bluetooth, please close this window!" -ForegroundColor Red
 Write-Host ""
-Write-Host "This script will intentionally disable start, search and shell."
-Write-Host "Start, search, shell and taskbar menus along with their flyouts will not function."
-Write-Host "Certain programs, settings and options may encounter issues or fail to run."
-Write-Host "If you experience any problems, please switch back to (Start Search Shell: Default)."
+Write-Host "This script will intentionally disable start, search, shell and mobsync." -ForegroundColor Red
+Write-Host "Start, search, shell and taskbar menus along with their flyouts will not function." -ForegroundColor Red
+Write-Host "Certain programs, settings and options may encounter issues or fail to run." -ForegroundColor Red
+Write-Host "If you experience any problems, please switch back to (Start Search Shell: Default)." -ForegroundColor Red
 Write-Host ""
-Write-Host "If Windows fails to boot or log in after applying this script," 
-Write-Host "please access your restore point from the advanced setup recovery menu."
+Write-Host "If Windows fails to boot or log in after applying this script," -ForegroundColor Red
+Write-Host "please access your restore point from the advanced setup recovery menu." -ForegroundColor Red
 Write-Host ""
 Pause
 Clear-Host
