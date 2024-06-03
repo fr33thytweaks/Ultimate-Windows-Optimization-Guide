@@ -43,7 +43,7 @@
 
 Write-Host "Installing: MSI Afterburner. Please wait . . ."
 # download msi afterburner
-Get-FileFromWeb -URL "https://download.msi.com/uti_exe/vga/MSIAfterburnerSetup466Beta3.zip" -File "$env:TEMP\MSI Afterburner.zip"
+Get-FileFromWeb -URL "https://ftp.nluug.nl/pub/games/PC/guru3d/afterburner/[Guru3D.com]-MSIAfterburnerSetup466Beta3Build16831.zip" -File "$env:TEMP\MSI Afterburner.zip"
 # extract files
 Expand-Archive "$env:TEMP\MSI Afterburner.zip" -DestinationPath "$env:TEMP" -ErrorAction SilentlyContinue
 # install msi afterburner
