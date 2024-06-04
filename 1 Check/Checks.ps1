@@ -142,6 +142,7 @@ function BiosSettings {
   Write-Host "-MSI driver utility"
   Write-Host "-Gigabyte update utility"
   Write-Host "-Asrock motherboard utility"
+  Write-Host "Press any key to Continue . . ."
   $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
   Clear-Host
 
