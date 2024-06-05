@@ -3,6 +3,11 @@ function CheckAdminRights {
     Start-Process PowerShell.exe -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -File `"{0}`"" -f $PSCommandPath) -Verb RunAs
     Exit
   }
+  $Host.UI.RawUI.WindowTitle = $myInvocation.MyCommand.Definition + " (Administrator)"
+  $Host.UI.RawUI.BackgroundColor = "Black"
+  $Host.PrivateData.ProgressBackgroundColor = "Black"
+  $Host.PrivateData.ProgressForegroundColor = "White"
+  Clear-Host
 }
 CheckAdminRights
 
@@ -41,27 +46,13 @@ function Get-FileFromWeb {
 }
 
 function SpaceCheck {
-  CheckAdminRights
-  $Host.UI.RawUI.WindowTitle = $myInvocation.MyCommand.Definition + " (Administrator)"
-  $Host.UI.RawUI.BackgroundColor = "Black"
-  $Host.PrivateData.ProgressBackgroundColor = "Black"
-  $Host.PrivateData.ProgressForegroundColor = "White"
-  Clear-Host
   Start-Process explorer shell:MyComputerFolder
   Write-Host "Maintain at least 10% free space."
   Write-Host "Press any key to go back . . ."
   $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-  
-
 }
 
 function RamCheck {
-  CheckAdminRights
-  $Host.UI.RawUI.WindowTitle = $myInvocation.MyCommand.Definition + " (Administrator)"
-  $Host.UI.RawUI.BackgroundColor = "Black"
-  $Host.PrivateData.ProgressBackgroundColor = "Black"
-  $Host.PrivateData.ProgressForegroundColor = "White"
-  Clear-Host
   Write-Host "Installing: Cpu Z . . ."
   # download cpuz
   Get-FileFromWeb -URL "https://download.cpuid.com/cpu-z/cpu-z_2.09-en.zip" -File "$env:TEMP\Cpu Z.zip" 
@@ -76,17 +67,9 @@ function RamCheck {
   Write-Host "At least two RAM sticks (dual channel) is ideal."
   Write-Host "Press any key to go back . . ."
   $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-
- 
 }
 
 function GpuCheck {
-  CheckAdminRights
-  $Host.UI.RawUI.WindowTitle = $myInvocation.MyCommand.Definition + " (Administrator)"
-  $Host.UI.RawUI.BackgroundColor = "Black"
-  $Host.PrivateData.ProgressBackgroundColor = "Black"
-  $Host.PrivateData.ProgressForegroundColor = "White"
-  Clear-Host
   Write-Host "Installing: Gpu Z . . ."
   # download gpuz
   Get-FileFromWeb -URL "https://ftp.nluug.nl/pub/games/PC/guru3d/generic/GPU-Z-[Guru3D.com].zip" -File "$env:TEMP\Gpu Z.zip"
@@ -104,27 +87,13 @@ function GpuCheck {
 }
 
 function BiosUpdate {
-  CheckAdminRights
-  $Host.UI.RawUI.WindowTitle = $myInvocation.MyCommand.Definition + " (Administrator)"
-  $Host.UI.RawUI.BackgroundColor = "Black"
-  $Host.PrivateData.ProgressBackgroundColor = "Black"
-  $Host.PrivateData.ProgressForegroundColor = "White"
-  Clear-Host
-
   # get motherboard id
   $instanceID = (wmic baseboard get product)
   # search motherboard id in web browser
-  Start-Process "https://www.google.com/search?q=$instanceID"
-  
+  Start-Process "https://www.duckduckgo.com/?q=$instanceID"
 }
 
 function BiosSettings {
-  CheckAdminRights
-  $Host.UI.RawUI.WindowTitle = $myInvocation.MyCommand.Definition + " (Administrator)"
-  $Host.UI.RawUI.BackgroundColor = "Black"
-  $Host.PrivateData.ProgressBackgroundColor = "Black"
-  $Host.PrivateData.ProgressForegroundColor = "White"
-  Clear-Host
   Write-Host "INTEL CPU"
   Write-Host "-ENABLE ram profile (XMP DOCP EXPO)"
   Write-Host "-DISABLE c-state"
@@ -169,12 +138,6 @@ function BiosSettings {
 }
 
 function CpuTest {
-  CheckAdminRights
-  $Host.UI.RawUI.WindowTitle = $myInvocation.MyCommand.Definition + " (Administrator)"
-  $Host.UI.RawUI.BackgroundColor = "Black"
-  $Host.PrivateData.ProgressBackgroundColor = "Black"
-  $Host.PrivateData.ProgressForegroundColor = "White"
-  Clear-Host
   Write-Host "Installing: Prime95 . . ."
   # download prime95
   Get-FileFromWeb -URL "https://www.mersenne.org/download/software/v30/30.19/p95v3019b13.win64.zip" -File "$env:TEMP\Prime 95.zip"
@@ -216,12 +179,6 @@ function CpuTest {
 }
 
 function RamTest {
-  CheckAdminRights
-  $Host.UI.RawUI.WindowTitle = $myInvocation.MyCommand.Definition + " (Administrator)"
-  $Host.UI.RawUI.BackgroundColor = "Black"
-  $Host.PrivateData.ProgressBackgroundColor = "Black"
-  $Host.PrivateData.ProgressForegroundColor = "White"
-  Clear-Host
   Write-Host "Installing: TM5 . . ."
   # allow powershell to download tm5
   Add-Type @"
@@ -486,12 +443,6 @@ Test Block Size (Mb)=0
 }
 
 function GpuTest {
-  CheckAdminRights
-  $Host.UI.RawUI.WindowTitle = $myInvocation.MyCommand.Definition + " (Administrator)"
-  $Host.UI.RawUI.BackgroundColor = "Black"
-  $Host.PrivateData.ProgressBackgroundColor = "Black"
-  $Host.PrivateData.ProgressForegroundColor = "White"
-  Clear-Host
   Write-Host "Installing: Furk Mark . . ."
   # download furkmark
   Get-FileFromWeb -URL "https://geeks3d.com/downloads/2024p/furmark2/FurMark_2.3.0.0_win64.zip" -File "$env:TEMP\Furk Mark.zip"
@@ -515,12 +466,6 @@ function GpuTest {
 }
 
 function HwInfo {
-  CheckAdminRights
-  $Host.UI.RawUI.WindowTitle = $myInvocation.MyCommand.Definition + " (Administrator)"
-  $Host.UI.RawUI.BackgroundColor = "Black"
-  $Host.PrivateData.ProgressBackgroundColor = "Black"
-  $Host.PrivateData.ProgressForegroundColor = "White"
-  Clear-Host
   Write-Host "Installing: Hw Info . . ."
   # download hwinfo
   Get-FileFromWeb -URL "https://ixpeering.dl.sourceforge.net/project/hwinfo/Windows_Portable/hwi_772.zip" -File "$env:TEMP\Hw Info.zip"
@@ -594,10 +539,10 @@ while ($true) {
         Clear-Host
         HwInfo
         show-menu
-      }
+      } 
     } 
   }
-}
-else {
-  Write-Host "Invalid input. Please select a valid option (1-10)."
+  else {
+    Write-Host "Invalid input. Please select a valid option (1-10)."
+  }
 }
