@@ -82,12 +82,12 @@ Write-Host "Step: One. Please wait . . ."
 Get-FileFromWeb -URL "https://www.sordum.org/files/downloads.php?power-run" -File "$env:TEMP\PowerRun.zip"
 # extract files
 Expand-Archive "$env:TEMP\PowerRun.zip" -DestinationPath "$env:TEMP" -ErrorAction SilentlyContinue
-# disable exploit protection
-cmd /c "reg add `"HKLM\SYSTEM\ControlSet001\Control\Session Manager\kernel`" /v `"MitigationOptions`" /t REG_BINARY /d `"222222000002000000020000000000000000000000000000`" /f >nul 2>&1"
+# disable exploit protection, leaving control flow guard cfg on for vanguard anticheat
+cmd /c "reg add `"HKLM\SYSTEM\ControlSet001\Control\Session Manager\kernel`" /v `"MitigationOptions`" /t REG_BINARY /d `"222222000001000000000000000000000000000000000000`" /f >nul 2>&1"
 Timeout /T 1 | Out-Null
-# disable exploit protection with powerrun
+# disable exploit protection with powerrun, leaving control flow guard cfg on for vanguard anticheat
 Set-Location -Path "$env:TEMP\PowerRun"
-.\PowerRun_x64.exe /SW:0 cmd.exe /c reg add "HKLM\SYSTEM\ControlSet001\Control\Session Manager\kernel" /v "MitigationOptions" /t REG_BINARY /d "222222000002000000020000000000000000000000000000" /f
+.\PowerRun_x64.exe /SW:0 cmd.exe /c reg add "HKLM\SYSTEM\ControlSet001\Control\Session Manager\kernel" /v "MitigationOptions" /t REG_BINARY /d "222222000001000000000000000000000000000000000000" /f
 Timeout /T 1 | Out-Null
 # create reg file
 $MultilineComment = @"
@@ -184,9 +184,9 @@ Windows Registry Editor Version 5.00
 [HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\AppHost]
 "EnableWebContentEvaluation"=dword:00000000
 
-; exploit protection
+; exploit protection, leaving control flow guard cfg on for vanguard anticheat
 [HKEY_LOCAL_MACHINE\System\ControlSet001\Control\Session Manager\kernel]
-"MitigationOptions"=hex(3):22,22,22,00,00,02,00,00,00,02,00,00,00,00,00,00,\
+"MitigationOptions"=hex:22,22,22,00,00,01,00,00,00,00,00,00,00,00,00,00,\
 00,00,00,00,00,00,00,00
 
 ; core isolation 
