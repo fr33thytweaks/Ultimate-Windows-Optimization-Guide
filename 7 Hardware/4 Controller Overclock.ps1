@@ -86,7 +86,7 @@ exit
     3 {
 
 Clear-Host
-Write-Host "If not using Option 1, disable Secure Boot in BIOS and delete Secure Boot keys . . ." -ForegroundColor Red
+Write-Host "If not using Option 1, disable Secure Boot in BIOS and delete Secure Boot keys . . ."
 $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 Clear-Host
 Write-Host "Installing: hidusbf . . ."
