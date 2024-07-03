@@ -451,10 +451,6 @@ Windows Registry Editor Version 5.00
 [HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\bluetoothSync]
 "Value"="Deny"
 
-; disable background apps
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications] 
-"GlobalUserDisabled"=dword:00000001
-
 ; app diagnostics 
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\appDiagnostics]
 "Value"="Deny"
@@ -996,6 +992,10 @@ E0,F6,C5,D5,0E,CA,50,00,00
 
 
 ; UWP APPS
+; disable background apps
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy]
+"LetAppsRunInBackground"=dword:00000002
+
 ; disable windows input experience preload
 [HKEY_CURRENT_USER\Software\Microsoft\input]
 "IsInputAppPreloadEnabled"=dword:00000000
@@ -1597,10 +1597,6 @@ Windows Registry Editor Version 5.00
 ; other devices 
 [-HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\bluetoothSync]
 
-; background apps
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications] 
-"GlobalUserDisabled"=-
-
 ; app diagnostics 
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\appDiagnostics]
 "Value"="Allow"
@@ -2109,6 +2105,10 @@ Windows Registry Editor Version 5.00
 
 
 ; UWP APPS
+; background apps
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy]
+"LetAppsRunInBackground"=-
+
 ; disable windows input experience preload
 [HKEY_CURRENT_USER\Software\Microsoft\input]
 "IsInputAppPreloadEnabled"=-
