@@ -125,10 +125,6 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run]
 "SecurityHealth"=hex:07,00,00,00,05,db,8a,69,8a,49,d9,01
 
-; remove action center
-[HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\Explorer]
-"DisableNotificationCenter"=dword:00000001
-
 ; show all taskbar icons w10 only
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer]
 "EnableAutoTray"=dword:00000000
@@ -636,9 +632,6 @@ Windows Registry Editor Version 5.00
 ; security taskbar icon
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run]
 "SecurityHealth"=hex:04,00,00,00,00,00,00,00,00,00,00,00
-
-; action center
-[-HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\Explorer]
 
 ; don't show all taskbar icons w10 only
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer]
