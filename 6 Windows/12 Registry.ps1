@@ -908,9 +908,15 @@ E0,F6,C5,D5,0E,CA,50,00,00
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\StorageSense]
 "AllowStorageSenseGlobal"=dword:00000000
 
-; disable snap windows
-[HKEY_CURRENT_USER\Control Panel\Desktop]
-"WindowArrangementActive"="0"
+; disable snap window settings
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+"SnapAssist"=dword:00000000
+"DITest"=dword:00000000
+"EnableSnapBar"=dword:00000000
+"EnableTaskGroups"=dword:00000000
+"EnableSnapAssistFlyout"=dword:00000000
+"SnapFill"=dword:00000000
+"JointResize"=dword:00000000
 
 ; alt tab open windows only
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
@@ -2030,9 +2036,15 @@ Windows Registry Editor Version 5.00
 ; storage sense
 [-HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\StorageSense]
 
-; snap windows
-[HKEY_CURRENT_USER\Control Panel\Desktop]
-"WindowArrangementActive"="1"
+; snap window settings
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+"SnapAssist"=-
+"DITest"=-
+"EnableSnapBar"=-
+"EnableTaskGroups"=-
+"EnableSnapAssistFlyout"=-
+"SnapFill"=-
+"JointResize"=-
 
 ; alt tab open
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
