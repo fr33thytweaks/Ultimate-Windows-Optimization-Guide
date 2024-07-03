@@ -754,10 +754,6 @@ Windows Registry Editor Version 5.00
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer]
 "HideSCAMeetNow"=dword:00000001
 
-; remove action center
-[HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Windows\Explorer]
-"DisableNotificationCenter"=dword:00000001
-
 ; remove news and interests
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Feeds]
 "EnableFeeds"=dword:00000000
