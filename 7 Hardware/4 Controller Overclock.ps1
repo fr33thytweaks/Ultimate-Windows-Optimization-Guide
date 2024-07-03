@@ -37,7 +37,56 @@
     }
     }
 
-Write-Host "Disable secure boot in BIOS and delete secure boot keys . . ." -ForegroundColor Red
+    Write-Host "1. Registry: USB overclock with Secure Boot"
+    Write-Host "2. Registry: Default"
+	Write-Host "3. Overclock Controller"
+
+    while ($true) {
+    $choice = Read-Host " "
+    if ($choice -match '^[1-3]$') {
+    switch ($choice) {
+    1 {
+
+Clear-Host
+# create reg file
+$MultilineComment = @"
+Windows Registry Editor Version 5.00
+
+; usb overclock with secure boot
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CI\Policy]
+"WHQLSettings"=dword:00000001
+"@
+Set-Content -Path "$env:TEMP\USB Overclock.reg" -Value $MultilineComment -Force
+# import reg file
+Regedit.exe "$env:TEMP\USB Overclock.reg"
+Write-Host "Restart to apply . . ."
+$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+exit
+
+      }
+    2 {
+
+Clear-Host
+# create reg file
+$MultilineComment = @"
+Windows Registry Editor Version 5.00
+
+; revert usb overclock with secure boot
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CI\Policy]
+"WHQLSettings"=-
+"@
+Set-Content -Path "$env:TEMP\Revert USB Overclock.reg" -Value $MultilineComment -Force
+# import reg file
+Regedit.exe "$env:TEMP\Revert USB Overclock.reg"
+Write-Host "Restart to apply . . ."
+$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+exit
+
+      }
+    3 {
+
+Clear-Host
+Write-Host "If not using Option 1, disable Secure Boot in BIOS and delete Secure Boot keys . . ." -ForegroundColor Red
 $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 Clear-Host
 Write-Host "Installing: hidusbf . . ."
@@ -55,3 +104,7 @@ Write-Host "Overclock controller . . ."
 $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 # start hidusbf
 Start-Process "$env:TEMP\hidusbf\DRIVER\Setup.exe"
+exit
+
+      }
+    } } else { Write-Host "Invalid input. Please select a valid option (1-3)." } }
