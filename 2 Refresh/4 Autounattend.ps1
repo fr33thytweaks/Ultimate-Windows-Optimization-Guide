@@ -7,6 +7,9 @@
     $Host.PrivateData.ProgressForegroundColor = "White"
     Clear-Host
 
+Write-Host "Remove Ethernet cable during the Windows installation . . ." -ForegroundColor Red
+$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+Clear-Host
 # save autounattend config
 $MultilineComment = @"
 <?xml version="1.0" encoding="utf-8"?>
