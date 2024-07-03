@@ -16,12 +16,12 @@
     1 {
 
 Clear-Host
-Write-Host "Keyboard Shortcuts: Off"
+Write-Host "Keyboard Shortcuts: Off" -ForegroundColor Red
 Write-Host ""
-Write-Host "-disable all keyboard shortcuts"
-Write-Host "-to prevent tabbing out of a game"
-Write-Host "-cut copy paste will function"
-Write-Host "-esc rebound to ="
+Write-Host "-disable all keyboard shortcuts" -ForegroundColor Red
+Write-Host "-to prevent tabbing out of a game" -ForegroundColor Red
+Write-Host "-cut copy paste will function" -ForegroundColor Red
+Write-Host "-esc rebound to =" -ForegroundColor Red
 $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 Clear-Host
 # disable media keys (human interface device service) regedit
