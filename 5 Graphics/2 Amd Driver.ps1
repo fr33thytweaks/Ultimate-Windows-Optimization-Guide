@@ -43,6 +43,6 @@
 
 Write-Host "Installing: AMD Driver . . ."
 # download amd driver
-Get-FileFromWeb -URL "https://files1.majorgeeks.com/10afebdbffcd4742c81a3cb0f6ce4092156b4375/drivers/amd-software-adrenalin-edition-24.3.1-minimalsetup-240320_web.exe" -File "$env:TEMP\AMD Driver.exe"
+Get-FileFromWeb -URL "https://files1.majorgeeks.com/10afebdbffcd4742c81a3cb0f6ce4092156b4375/drivers/amd-software-adrenalin-edition-24.6.1-minimalsetup-240626_web.exe" -File "$env:TEMP\AMD Driver.exe"
 # start amd driver installer
 Start-Process "$env:TEMP\AMD Driver.exe" /S
