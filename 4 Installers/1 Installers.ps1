@@ -99,7 +99,12 @@ Write-Host "Installing: Battle.net . . ."
 # download battle.net
 Get-FileFromWeb -URL "https://downloader.battle.net/download/getInstaller?os=win&installer=Battle.net-Setup.exe" -File "$env:TEMP\Battle.net.exe"
 # install battle.net 
-Start-Process "$env:TEMP\Battle.net.exe"
+Start-Process "$env:TEMP\Battle.net.exe" -ArgumentList '--lang=enUS --installpath="C:\Program Files (x86)\Battle.net"'
+# create battle.net shortcut
+$WshShell = New-Object -comObject WScript.Shell
+$Shortcut = $WshShell.CreateShortcut("$Home\Desktop\Battle.net.lnk")
+$Shortcut.TargetPath = "$env:C:\Program Files (x86)\Battle.net\Battle.net Launcher.exe"
+$Shortcut.Save()
 show-menu
 
       }
@@ -163,9 +168,9 @@ show-menu
 Clear-Host
 Write-Host "Installing: Google Chrome . . ."
 # download google chrome
-Get-FileFromWeb -URL "https://dl.google.com/chrome/install/latest/chrome_installer.exe" -File "$env:TEMP\Chrome.exe"
+Get-FileFromWeb -URL "https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise64.msi" -File "$env:TEMP\Chrome.msi"
 # install google chrome
-Start-Process -wait "$env:TEMP\Chrome.exe"
+Start-Process -wait "$env:TEMP\Chrome.msi" -ArgumentList "/quiet"
 # open ublock origin in web browser
 Start-Process "C:\Program Files\Google\Chrome\Application\chrome.exe" "https://chromewebstore.google.com/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm"
 show-menu
@@ -187,7 +192,7 @@ show-menu
 Clear-Host
 Write-Host "Installing: Notepad ++ . . ."
 # download notepad ++
-Get-FileFromWeb -URL "https://files02.tchspt.com/down/npp.8.6.4.Installer.x64.exe" -File "$env:TEMP\Notepad ++.exe"
+Get-FileFromWeb -URL "https://files02.tchspt.com/down/npp.8.6.8.Installer.x64.exe" -File "$env:TEMP\Notepad ++.exe"
 # install notepad ++
 Start-Process -wait "$env:TEMP\Notepad ++.exe" -ArgumentList "/S"
 show-menu
