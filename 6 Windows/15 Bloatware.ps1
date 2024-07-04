@@ -45,19 +45,18 @@
 	Clear-Host
     Write-Host " 1. Exit"
 	Write-Host " 2. Remove : All Bloatware (Recommended)"
-    Write-Host " 3. Install: Paint Photos Notepad (Recommended)"
-    Write-Host " 4. Install: Store"
-	Write-Host " 5. Install: All UWP Apps"
-    Write-Host " 6. Install: UWP Features"
-    Write-Host " 7. Install: Legacy Features"
-	Write-Host " 8. Install: One Drive"
-    Write-Host " 9. Install: Remote Desktop Connection"
-    Write-Host "10. Install: Legacy Snipping Tool W10"
+    Write-Host " 3. Install: Store"
+	Write-Host " 4. Install: All UWP Apps"
+    Write-Host " 5. Install: UWP Features"
+    Write-Host " 6. Install: Legacy Features"
+	Write-Host " 7. Install: One Drive"
+    Write-Host " 8. Install: Remote Desktop Connection"
+    Write-Host " 9. Install: Legacy Snipping Tool W10"
 		              }
 	show-menu
     while ($true) {
     $choice = Read-Host " "
-	if ($choice -match '^(10|[1-9])$') {
+    if ($choice -match '^[1-9]$') {
     switch ($choice) {
     1 {
 
@@ -72,12 +71,29 @@ $progresspreference = 'silentlycontinue'
 Write-Host "Uninstalling: UWP Apps. Please wait . . ."
 # uninstall all uwp apps keep nvidia
 Get-AppXPackage -allusers | Where-Object {$_.name -notlike '*NVIDIA*'} | Remove-AppxPackage -ErrorAction SilentlyContinue
+Timeout /T 2 | Out-Null
 # install cbs needed for w11 explorer
 Get-AppXPackage -AllUsers *Microsoft.WindowsAppRuntime.CBS* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register -ErrorAction SilentlyContinue "$($_.InstallLocation)\AppXManifest.xml"}
+Timeout /T 2 | Out-Null
+# install hevc video extension needed for amd recording
+Get-AppXPackage -AllUsers *Microsoft.HEVCVideoExtension* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register -ErrorAction SilentlyContinue "$($_.InstallLocation)\AppXManifest.xml"}
+Timeout /T 2 | Out-Null
+# install heif image extension needed for some files
+Get-AppXPackage -AllUsers *Microsoft.HEIFImageExtension* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register -ErrorAction SilentlyContinue "$($_.InstallLocation)\AppXManifest.xml"}
+Timeout /T 2 | Out-Null
+# install paint w11
+Get-AppXPackage -AllUsers *Microsoft.Paint* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register -ErrorAction SilentlyContinue "$($_.InstallLocation)\AppXManifest.xml"}
+Timeout /T 2 | Out-Null
+# install photos
+Get-AppXPackage -AllUsers *Microsoft.Windows.Photos* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register -ErrorAction SilentlyContinue "$($_.InstallLocation)\AppXManifest.xml"}
+Timeout /T 2 | Out-Null
+# install notepad w11
+Get-AppXPackage -AllUsers *Microsoft.WindowsNotepad* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register -ErrorAction SilentlyContinue "$($_.InstallLocation)\AppXManifest.xml"}
+Timeout /T 2 | Out-Null
 Clear-Host
 Write-Host "Uninstalling: UWP Features. Please wait . . ."
 # uninstall all uwp features
-# network drivers left out
+# network drivers, paint & notepad left out
 Remove-WindowsCapability -Online -Name "App.StepsRecorder~~~~0.0.1.0" | Out-Null
 Remove-WindowsCapability -Online -Name "App.Support.QuickAssist~~~~0.0.1.0" | Out-Null
 Remove-WindowsCapability -Online -Name "Browser.InternetExplorer~~~~0.0.11.0" | Out-Null
@@ -90,9 +106,9 @@ Remove-WindowsCapability -Online -Name "Microsoft.Wallpapers.Extended~~~~0.0.1.0
 # Remove-WindowsCapability -Online -Name "Microsoft.Windows.Ethernet.Client.Intel.E1i68x64~~~~0.0.1.0" | Out-Null
 # Remove-WindowsCapability -Online -Name "Microsoft.Windows.Ethernet.Client.Intel.E2f68~~~~0.0.1.0" | Out-Null
 # Remove-WindowsCapability -Online -Name "Microsoft.Windows.Ethernet.Client.Realtek.Rtcx21x64~~~~0.0.1.0" | Out-Null
-Remove-WindowsCapability -Online -Name "Microsoft.Windows.MSPaint~~~~0.0.1.0" | Out-Null
-Remove-WindowsCapability -Online -Name "Microsoft.Windows.Notepad.System~~~~0.0.1.0" | Out-Null
-Remove-WindowsCapability -Online -Name "Microsoft.Windows.Notepad~~~~0.0.1.0" | Out-Null
+# Remove-WindowsCapability -Online -Name "Microsoft.Windows.MSPaint~~~~0.0.1.0" | Out-Null
+# Remove-WindowsCapability -Online -Name "Microsoft.Windows.Notepad.System~~~~0.0.1.0" | Out-Null
+# Remove-WindowsCapability -Online -Name "Microsoft.Windows.Notepad~~~~0.0.1.0" | Out-Null
 Remove-WindowsCapability -Online -Name "Microsoft.Windows.PowerShell.ISE~~~~0.0.1.0" | Out-Null
 # Remove-WindowsCapability -Online -Name "Microsoft.Windows.Wifi.Client.Broadcom.Bcmpciedhd63~~~~0.0.1.0" | Out-Null
 # Remove-WindowsCapability -Online -Name "Microsoft.Windows.Wifi.Client.Broadcom.Bcmpciedhd63~~~~0.0.1.0" | Out-Null
@@ -158,7 +174,8 @@ Remove-WindowsCapability -Online -Name "Windows.Kernel.LA57~~~~0.0.1.0" | Out-Nu
 Clear-Host
 Write-Host "Uninstalling: Legacy Features. Please wait . . ."
 # uninstall all legacy features
-Dism /Online /NoRestart /Disable-Feature /FeatureName:NetFx4-AdvSrvs | Out-Null
+# .net framework 4.8 advanced services left out
+# Dism /Online /NoRestart /Disable-Feature /FeatureName:NetFx4-AdvSrvs | Out-Null
 Dism /Online /NoRestart /Disable-Feature /FeatureName:WCF-Services45 | Out-Null
 Dism /Online /NoRestart /Disable-Feature /FeatureName:WCF-TCP-PortSharing45 | Out-Null
 Dism /Online /NoRestart /Disable-Feature /FeatureName:MediaPlayback | Out-Null
@@ -188,6 +205,7 @@ cmd /c "reg delete `"HKLM\SYSTEM\ControlSet001\Services\uhssvc`" /f >nul 2>&1"
 Unregister-ScheduledTask -TaskName PLUGScheduler -Confirm:$false -ErrorAction SilentlyContinue | Out-Null
 # uninstall update for windows 10 for x64-based systems
 cmd /c "MsiExec.exe /X{B9A7A138-BFD5-4C73-A269-F78CCA28150E} /qn >nul 2>&1"
+cmd /c "MsiExec.exe /X{85C69797-7336-4E83-8D97-32A7C8465A3B} /qn >nul 2>&1"
 # stop onedrive running
 Stop-Process -Force -Name OneDrive -ErrorAction SilentlyContinue | Out-Null
 # uninstall onedrive w10
@@ -245,35 +263,6 @@ show-menu
 
 Clear-Host
 $progresspreference = 'silentlycontinue'
-Write-Host "Installing: Paint Photos Notepad. Please wait . . ."
-Write-Host ""
-Write-Host "Ignore installer error message on W11."
-Write-Host "If installer error message occurs W10, restart PC and rerun script."
-Write-Host ""
-# download paint w10 
-Get-FileFromWeb -URL "https://download.microsoft.com/download/f/4/e/f4e03465-34d1-49b6-af1a-2816ca4a2402/installers_signed/mspaint_setup_x64.exe" -File "$env:TEMP\MsPaint.exe"
-# install paint w10
-Start-Process -Wait "$env:TEMP\MsPaint.exe"
-Clear-Host
-Write-Host "Installing: Paint Photos Notepad. Please wait . . ."
-# install paint w11
-Get-AppXPackage -AllUsers *Microsoft.Paint* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register -ErrorAction SilentlyContinue "$($_.InstallLocation)\AppXManifest.xml"}
-# install photos
-Get-AppXPackage -AllUsers *Microsoft.Windows.Photos* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register -ErrorAction SilentlyContinue "$($_.InstallLocation)\AppXManifest.xml"}
-# install notepad w11
-Get-AppXPackage -AllUsers *Microsoft.WindowsNotepad* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register -ErrorAction SilentlyContinue "$($_.InstallLocation)\AppXManifest.xml"}
-# install notepad w10
-Add-WindowsCapability -Online -Name "Microsoft.Windows.Notepad~~~~0.0.1.0" | Out-Null
-Clear-Host
-Write-Host "Restart to apply . . ."
-$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-show-menu
-
-      }
-    4 {
-
-Clear-Host
-$progresspreference = 'silentlycontinue'
 Write-Host "Installing: Store. Please wait . . ."
 # install store
 Get-AppXPackage -AllUsers *Microsoft.WindowsStore* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register -ErrorAction SilentlyContinue "$($_.InstallLocation)\AppXManifest.xml"}
@@ -284,7 +273,7 @@ $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 show-menu
 
       }	  
-    5 {
+    4 {
 
 Clear-Host
 $progresspreference = 'silentlycontinue'
@@ -297,7 +286,7 @@ $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 show-menu
 
       }	  
-    6 {
+    5 {
 
 Clear-Host
 Write-Host "Install: UWP Features . . ."
@@ -350,7 +339,7 @@ $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 show-menu
 
       }
-    7 {
+    6 {
 
 Clear-Host
 Write-Host "Install: Legacy Features . . ."
@@ -406,7 +395,7 @@ $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 show-menu
 
       }
-    8 {
+    7 {
 
 Clear-Host
 Write-Host "Installing: One Drive. Please wait . . ."
@@ -420,7 +409,7 @@ $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 show-menu
 
       }	  
-    9 {
+    8 {
 
 Clear-Host
 Write-Host "Installing: Remote Desktop Connection. Please wait . . ."
@@ -434,7 +423,7 @@ $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 show-menu
 
       }
-   10 {
+    9 {
 
 Clear-Host
 Write-Host "Installing: Legacy Snipping Tool W10. Please wait . . ."
@@ -452,4 +441,4 @@ $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 show-menu
 
       }
-    } } else { Write-Host "Invalid input. Please select a valid option (1-10)." } }
+    } } else { Write-Host "Invalid input. Please select a valid option (1-9)." } }
