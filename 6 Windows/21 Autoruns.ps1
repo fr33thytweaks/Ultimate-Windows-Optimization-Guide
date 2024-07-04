@@ -73,9 +73,11 @@ Get-ScheduledTask | Where-Object {$_.Taskname -match 'MicrosoftEdgeUpdateBrowser
 # remove logon chrome
 cmd /c "reg delete `"HKLM\Software\Microsoft\Active Setup\Installed Components\{8A69D345-D564-463c-AFF1-A69D9E530F96}`" /f >nul 2>&1"
 # disable chrome services
-reg add "HKLM\SYSTEM\ControlSet001\Services\GoogleChromeElevationService" /v "Start" /t REG_DWORD /d "4" /f | Out-Null
-reg add "HKLM\SYSTEM\ControlSet001\Services\gupdate" /v "Start" /t REG_DWORD /d "4" /f | Out-Null
-reg add "HKLM\SYSTEM\ControlSet001\Services\gupdatem" /v "Start" /t REG_DWORD /d "4" /f | Out-Null
+$services = Get-Service | Where-Object { $_.Name -match 'Google' }
+foreach ($service in $services) {
+Set-Service -Name $service.Name -StartupType Disabled
+Stop-Service -Name $service.Name -Force
+}
 # remove chrome tasks
 Get-ScheduledTask | Where-Object {$_.Taskname -match 'GoogleUpdateTaskMachineCore'} | Unregister-ScheduledTask -Confirm:$false
 Get-ScheduledTask | Where-Object {$_.Taskname -match 'GoogleUpdateTaskMachineUA'} | Unregister-ScheduledTask -Confirm:$false
