@@ -93,17 +93,17 @@ Write-Host "Installing: hidusbf . . ."
 # download hidusbf
 Get-FileFromWeb -URL "https://raw.githubusercontent.com/LordOfMice/hidusbf/master/hidusbf.zip" -File "$env:TEMP\hidusbf.zip"
 # extract files
-Expand-Archive "$env:TEMP\hidusbf.zip" -DestinationPath "$env:TEMP\hidusbf" -ErrorAction SilentlyContinue
+Expand-Archive "$env:TEMP\hidusbf.zip" -DestinationPath "$env:USERPROFILE\Downloads\hidusbf" -ErrorAction SilentlyContinue
 Clear-Host
 Write-Host "Install certificate . . ."
 $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 # start sweetlow.cer
-Start-Process "$env:TEMP\hidusbf\SweetLow.CER"
+Start-Process "$env:USERPROFILE\Downloads\hidusbf\SweetLow.CER"
 Clear-Host
 Write-Host "Overclock controller . . ."
 $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 # start hidusbf
-Start-Process "$env:TEMP\hidusbf\DRIVER\Setup.exe"
+Start-Process "$env:USERPROFILE\Downloads\hidusbf\DRIVER\Setup.exe"
 exit
 
       }
