@@ -1,3 +1,7 @@
+    If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"))
+    {Start-Process PowerShell.exe -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -File `"{0}`"" -f $PSCommandPath) -Verb RunAs
+    Exit}
+    $Host.UI.RawUI.WindowTitle = $myInvocation.MyCommand.Definition + " (Administrator)"
     $Host.UI.RawUI.BackgroundColor = "Black"
 	$Host.PrivateData.ProgressBackgroundColor = "Black"
     $Host.PrivateData.ProgressForegroundColor = "White"
@@ -48,17 +52,8 @@
     1 {
 
 Clear-Host
-# create reg file
-$MultilineComment = @"
-Windows Registry Editor Version 5.00
-
-; usb overclock with secure boot
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CI\Policy]
-"WHQLSettings"=dword:00000001
-"@
-Set-Content -Path "$env:TEMP\USB Overclock.reg" -Value $MultilineComment -Force
-# import reg file
-Regedit.exe "$env:TEMP\USB Overclock.reg"
+# usb overclock with secure boot regedit
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\CI\Policy" /v "WHQLSettings" /t REG_DWORD /d "1" /f | Out-Null
 Write-Host "Restart to apply . . ."
 $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 exit
@@ -67,17 +62,8 @@ exit
     2 {
 
 Clear-Host
-# create reg file
-$MultilineComment = @"
-Windows Registry Editor Version 5.00
-
-; revert usb overclock with secure boot
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CI\Policy]
-"WHQLSettings"=-
-"@
-Set-Content -Path "$env:TEMP\Revert USB Overclock.reg" -Value $MultilineComment -Force
-# import reg file
-Regedit.exe "$env:TEMP\Revert USB Overclock.reg"
+# revert usb overclock with secure boot
+cmd.exe /c "reg delete `"HKLM\SYSTEM\CurrentControlSet\Control\CI\Policy`" /v `"WHQLSettings`" /f >nul 2>&1"
 Write-Host "Restart to apply . . ."
 $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 exit
@@ -93,17 +79,26 @@ Write-Host "Installing: hidusbf . . ."
 # download hidusbf
 Get-FileFromWeb -URL "https://raw.githubusercontent.com/LordOfMice/hidusbf/master/hidusbf.zip" -File "$env:TEMP\hidusbf.zip"
 # extract files
-Expand-Archive "$env:TEMP\hidusbf.zip" -DestinationPath "$env:USERPROFILE\Downloads\hidusbf" -ErrorAction SilentlyContinue
+Expand-Archive "$env:TEMP\hidusbf.zip" -DestinationPath "$env:C:\Program Files (x86)\hidusbf" -ErrorAction SilentlyContinue                                            
 Clear-Host
-Write-Host "Install certificate . . ."
-$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-# start sweetlow.cer
-Start-Process "$env:USERPROFILE\Downloads\hidusbf\SweetLow.CER"
-Clear-Host
-Write-Host "Overclock controller . . ."
-$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-# start hidusbf
-Start-Process "$env:USERPROFILE\Downloads\hidusbf\DRIVER\Setup.exe"
+# install sweetlow.cer
+$rootCertPath = "$env:C:\Program Files (x86)\hidusbf\sweetlow.cer"
+$rootCert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2
+$rootCert.Import($rootCertPath)
+$certStore = New-Object System.Security.Cryptography.X509Certificates.X509Store('Root', 'LocalMachine')
+$certStore.Open('ReadWrite')
+$certStore.Add($rootCert)
+$certStore.Close()
+# create ddu shortcut desktop
+$WshShell = New-Object -comObject WScript.Shell
+$Shortcut = $WshShell.CreateShortcut("$Home\Desktop\Setup.lnk")
+$Shortcut.TargetPath = "$env:C:\Program Files (x86)\hidusbf\DRIVER\Setup.exe"
+$Shortcut.Save()
+# create ddu shortcut start menu
+$WshShell = New-Object -comObject WScript.Shell
+$Shortcut = $WshShell.CreateShortcut("$env:ProgramData\Microsoft\Windows\Start Menu\Programs\Setup.lnk")
+$Shortcut.TargetPath = "$env:C:\Program Files (x86)\hidusbf\DRIVER\Setup.exe"
+$Shortcut.Save()
 exit
 
       }
