@@ -22,7 +22,7 @@ $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 # create device manager shortcut
 $WshShell = New-Object -comObject WScript.Shell
 $Shortcut = $WshShell.CreateShortcut("$Home\Desktop\Enable Internet.lnk")
-$Shortcut.TargetPath = "$env:C:\Windows\System32\devmgmt.msc"
+$Shortcut.TargetPath = "$env:SystemDrive\Windows\System32\devmgmt.msc"
 $Shortcut.Save()
 # open activation screen
 Start-Process slui.exe 3
