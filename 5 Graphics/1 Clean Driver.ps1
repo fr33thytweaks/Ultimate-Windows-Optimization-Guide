@@ -90,7 +90,7 @@ reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\DriverSearching" /v "Sea
 # create msconfig shortcut
 $WshShell = New-Object -comObject WScript.Shell
 $Shortcut = $WshShell.CreateShortcut("$Home\Desktop\Safe Mode Toggle.lnk")
-$Shortcut.TargetPath = "$env:C:\Windows\System32\msconfig.exe"
+$Shortcut.TargetPath = "$env:SystemDrive\Windows\System32\msconfig.exe"
 $Shortcut.Save()
 # create ddu shortcut
 $WshShell = New-Object -comObject WScript.Shell
