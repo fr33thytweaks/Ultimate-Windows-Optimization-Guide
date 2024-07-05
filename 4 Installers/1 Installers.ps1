@@ -103,7 +103,7 @@ Start-Process "$env:TEMP\Battle.net.exe" -ArgumentList '--lang=enUS --installpat
 # create battle.net shortcut
 $WshShell = New-Object -comObject WScript.Shell
 $Shortcut = $WshShell.CreateShortcut("$Home\Desktop\Battle.net.lnk")
-$Shortcut.TargetPath = "$env:C:\Program Files (x86)\Battle.net\Battle.net Launcher.exe"
+$Shortcut.TargetPath = "$env:SystemDrive\Program Files (x86)\Battle.net\Battle.net Launcher.exe"
 $Shortcut.Save()
 show-menu
 
