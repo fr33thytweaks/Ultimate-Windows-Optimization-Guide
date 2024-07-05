@@ -139,7 +139,7 @@ Remove-Item -Recurse -Force "$env:USERPROFILE\AppData\Local\Packages\Microsoft.W
 Get-FileFromWeb -URL "https://github.com/fr33thytweaks/files/raw/main/start2.bin" -File "$env:USERPROFILE\AppData\Local\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState\start2.bin"
 # CLEAN START MENU W10
 # delete startmenulayout.xml
-Remove-Item -Recurse -Force "$env:C:\Windows\StartMenuLayout.xml" -ErrorAction SilentlyContinue | Out-Null
+Remove-Item -Recurse -Force "$env:SystemDrive\Windows\StartMenuLayout.xml" -ErrorAction SilentlyContinue | Out-Null
 # create startmenulayout.xml
 $MultilineComment = @"
 <LayoutModificationTemplate xmlns:defaultlayout="http://schemas.microsoft.com/Start/2014/FullDefaultLayout" xmlns:start="http://schemas.microsoft.com/Start/2014/StartLayout" Version="1" xmlns:taskbar="http://schemas.microsoft.com/Start/2014/TaskbarLayout" xmlns="http://schemas.microsoft.com/Start/2014/LayoutModification">
@@ -176,7 +176,7 @@ Set-ItemProperty -Path $keyPath -Name "LockedStartLayout" -Value 0
 # restart explorer
 Stop-Process -Force -Name explorer -ErrorAction SilentlyContinue | Out-Null
 # delete startmenulayout.xml
-Remove-Item -Recurse -Force "$env:C:\Windows\StartMenuLayout.xml" -ErrorAction SilentlyContinue | Out-Null
+Remove-Item -Recurse -Force "$env:SystemDrive\Windows\StartMenuLayout.xml" -ErrorAction SilentlyContinue | Out-Null
 Clear-Host
 Write-Host "Restart to apply . . ."
 $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
@@ -203,12 +203,12 @@ $Shortcut.Save()
 # pin microsoft edge to taskbar
 $WshShell = New-Object -comObject WScript.Shell
 $Shortcut = $WshShell.CreateShortcut("$env:AppData\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar\Microsoft Edge.lnk")
-$Shortcut.TargetPath = "$env:C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"     
+$Shortcut.TargetPath = "$env:SystemDrive\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"     
 $Shortcut.Save()
 # pin microsoft edge to taskbar
 $WshShell = New-Object -comObject WScript.Shell
 $Shortcut = $WshShell.CreateShortcut("$env:AppData\Microsoft\Internet Explorer\Quick Launch\Microsoft Edge.lnk")
-$Shortcut.TargetPath = "$env:C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"     
+$Shortcut.TargetPath = "$env:SystemDrive\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"     
 $Shortcut.Save()
 # pin show desktop to taskbar
 $WshShell = New-Object -comObject WScript.Shell
@@ -645,7 +645,7 @@ Regedit.exe /S "Taskbar Default.reg"
 Remove-Item -Recurse -Force "$env:USERPROFILE\AppData\Local\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState\start2.bin" -ErrorAction SilentlyContinue
 # START MENU W10
 # delete startmenulayout.xml
-Remove-Item -Recurse -Force "$env:C:\Windows\StartMenuLayout.xml" -ErrorAction SilentlyContinue | Out-Null
+Remove-Item -Recurse -Force "$env:SystemDrive\Windows\StartMenuLayout.xml" -ErrorAction SilentlyContinue | Out-Null
 # create startmenulayout.xml
 $MultilineComment = @"
 <LayoutModificationTemplate xmlns:defaultlayout="http://schemas.microsoft.com/Start/2014/FullDefaultLayout" xmlns:start="http://schemas.microsoft.com/Start/2014/StartLayout" Version="1" xmlns="http://schemas.microsoft.com/Start/2014/LayoutModification">
@@ -706,7 +706,7 @@ Set-ItemProperty -Path $keyPath -Name "LockedStartLayout" -Value 0
 # restart explorer
 Stop-Process -Force -Name explorer -ErrorAction SilentlyContinue | Out-Null
 # delete startmenulayout.xml
-Remove-Item -Recurse -Force "$env:C:\Windows\StartMenuLayout.xml" -ErrorAction SilentlyContinue | Out-Null
+Remove-Item -Recurse -Force "$env:SystemDrive\Windows\StartMenuLayout.xml" -ErrorAction SilentlyContinue | Out-Null
 Clear-Host
 Write-Host "Restart to apply . . ."
 $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
