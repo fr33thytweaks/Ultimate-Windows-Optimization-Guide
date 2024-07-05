@@ -49,7 +49,7 @@ Expand-Archive "$env:TEMP\MSI Afterburner.zip" -DestinationPath "$env:TEMP" -Err
 # install msi afterburner
 Start-Process -wait "$env:TEMP\MSIAfterburnerSetup466Beta3.exe" -ArgumentList "/S"
 # new folder
-New-Item -Path "$env:C:\Program Files (x86)\MSI Afterburner" -Name "Profiles" -ItemType Directory -ErrorAction SilentlyContinue | Out-Null
+New-Item -Path "$env:SystemDrive\Program Files (x86)\MSI Afterburner" -Name "Profiles" -ItemType Directory -ErrorAction SilentlyContinue | Out-Null
 # create config for msi afterburner
 $MultilineComment = @"
 [Settings]
@@ -3053,9 +3053,9 @@ OSDItemType=0
 GraphColor=00FF00h
 Formula=
 "@
-Set-Content -Path "$env:C:\Program Files (x86)\MSI Afterburner\Profiles\MSIAfterburner.cfg" -Value $MultilineComment -Force
+Set-Content -Path "$env:SystemDrive\Program Files (x86)\MSI Afterburner\Profiles\MSIAfterburner.cfg" -Value $MultilineComment -Force
 # new folder
-New-Item -Path "$env:C:\Program Files (x86)\RivaTuner Statistics Server" -Name "Profiles" -ItemType Directory -ErrorAction SilentlyContinue | Out-Null
+New-Item -Path "$env:SystemDrive\Program Files (x86)\RivaTuner Statistics Server" -Name "Profiles" -ItemType Directory -ErrorAction SilentlyContinue | Out-Null
 # create config for rivatuner statistics server
 $MultilineComment = @"
 [FnOffsetCache64]
@@ -3142,7 +3142,7 @@ Flags=00000005
 OverlayEditor.dll=1
 HotkeyHandler.dll=1
 "@
-Set-Content -Path "$env:C:\Program Files (x86)\RivaTuner Statistics Server\Profiles\Config" -Value $MultilineComment -Force
+Set-Content -Path "$env:SystemDrive\Program Files (x86)\RivaTuner Statistics Server\Profiles\Config" -Value $MultilineComment -Force
 # edit config for rivatuner statistics server
 $MultilineComment = @"
 [OSD]
@@ -3223,13 +3223,13 @@ Implementation=2
 [Info]
 
 "@
-Set-Content -Path "$env:C:\Program Files (x86)\RivaTuner Statistics Server\Profiles\Global" -Value $MultilineComment -Force
+Set-Content -Path "$env:SystemDrive\Program Files (x86)\RivaTuner Statistics Server\Profiles\Global" -Value $MultilineComment -Force
 # edit config for rivatuner statistics server
 $MultilineComment = @"
 [Settings]
 Layout=fr33thy.ovl
 "@
-Set-Content -Path "$env:C:\Program Files (x86)\RivaTuner Statistics Server\Plugins\Client\OverlayEditor.cfg" -Value $MultilineComment -Force
+Set-Content -Path "$env:SystemDrive\Program Files (x86)\RivaTuner Statistics Server\Plugins\Client\OverlayEditor.cfg" -Value $MultilineComment -Force
 # edit config for rivatuner statistics server
 $MultilineComment = @"
 [Settings]
@@ -3309,7 +3309,7 @@ OVM4Message=
 OVM4Layer=
 OVM4Params=
 "@
-Set-Content -Path "$env:C:\Program Files (x86)\RivaTuner Statistics Server\Plugins\Client\HotkeyHandler.cfg" -Value $MultilineComment -Force
+Set-Content -Path "$env:SystemDrive\Program Files (x86)\RivaTuner Statistics Server\Plugins\Client\HotkeyHandler.cfg" -Value $MultilineComment -Force
 # create overlay for rivatuner statistics server
 $MultilineComment = @"
 [Master]
@@ -4690,4 +4690,4 @@ FixedAlignment=1
 Size=70
 TextColor=11C511
 "@
-Set-Content -Path "$env:C:\Program Files (x86)\RivaTuner Statistics Server\Plugins\Client\Overlays\fr33thy.ovl" -Value $MultilineComment -Force
+Set-Content -Path "$env:SystemDrive\Program Files (x86)\RivaTuner Statistics Server\Plugins\Client\Overlays\fr33thy.ovl" -Value $MultilineComment -Force
