@@ -4691,3 +4691,22 @@ Size=70
 TextColor=11C511
 "@
 Set-Content -Path "$env:SystemDrive\Program Files (x86)\RivaTuner Statistics Server\Plugins\Client\Overlays\fr33thy.ovl" -Value $MultilineComment -Force
+# edit config for rivatuner statistics server
+$MultilineComment = @"
+[Settings]
+WindowX=0
+WindowY=0
+WindowW=1024
+WindowH=768
+Transparent=1
+Topmost=1
+LockPos=1
+ColorKey=1
+BgndColor=00000000
+Alpha=000000FF
+Renderer=1
+SuspendInIdle=0
+ScaleToFit=0
+Maximized=1
+"@
+Set-Content -Path "$env:SystemDrive\Program Files (x86)\RivaTuner Statistics Server\DesktopOverlayHost.cfg" -Value $MultilineComment -Force
