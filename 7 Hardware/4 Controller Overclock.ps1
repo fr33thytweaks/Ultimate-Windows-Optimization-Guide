@@ -79,10 +79,10 @@ Write-Host "Installing: hidusbf . . ."
 # download hidusbf
 Get-FileFromWeb -URL "https://raw.githubusercontent.com/LordOfMice/hidusbf/master/hidusbf.zip" -File "$env:TEMP\hidusbf.zip"
 # extract files
-Expand-Archive "$env:TEMP\hidusbf.zip" -DestinationPath "$env:C:\Program Files (x86)\hidusbf" -ErrorAction SilentlyContinue                                            
+Expand-Archive "$env:TEMP\hidusbf.zip" -DestinationPath "$env:SystemDrive\Program Files (x86)\hidusbf" -ErrorAction SilentlyContinue                                            
 Clear-Host
 # install sweetlow.cer
-$rootCertPath = "$env:C:\Program Files (x86)\hidusbf\sweetlow.cer"
+$rootCertPath = "$env:SystemDrive\Program Files (x86)\hidusbf\sweetlow.cer"
 $rootCert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2
 $rootCert.Import($rootCertPath)
 $certStore = New-Object System.Security.Cryptography.X509Certificates.X509Store('Root', 'LocalMachine')
@@ -92,12 +92,12 @@ $certStore.Close()
 # create ddu shortcut desktop
 $WshShell = New-Object -comObject WScript.Shell
 $Shortcut = $WshShell.CreateShortcut("$Home\Desktop\Setup.lnk")
-$Shortcut.TargetPath = "$env:C:\Program Files (x86)\hidusbf\DRIVER\Setup.exe"
+$Shortcut.TargetPath = "$env:SystemDrive\Program Files (x86)\hidusbf\DRIVER\Setup.exe"
 $Shortcut.Save()
 # create ddu shortcut start menu
 $WshShell = New-Object -comObject WScript.Shell
 $Shortcut = $WshShell.CreateShortcut("$env:ProgramData\Microsoft\Windows\Start Menu\Programs\Setup.lnk")
-$Shortcut.TargetPath = "$env:C:\Program Files (x86)\hidusbf\DRIVER\Setup.exe"
+$Shortcut.TargetPath = "$env:SystemDrive\Program Files (x86)\hidusbf\DRIVER\Setup.exe"
 $Shortcut.Save()
 exit
 
