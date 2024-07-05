@@ -157,11 +157,11 @@ $path = "$env:TEMP\autounattend.xml"
 $username = Read-Host -prompt "Enter Account Name"
 (Get-Content $path) -replace "@",$username | out-file $path
 # convert file to utf8
-Get-Content "$env:TEMP\autounattend.xml" | Set-Content -Encoding utf8 "$env:C:\Windows\Temp\autounattend.xml" -Force
+Get-Content "$env:TEMP\autounattend.xml" | Set-Content -Encoding utf8 "$env:SystemDrive\Windows\Temp\autounattend.xml" -Force
 # delete old autounattend file
 Remove-Item -Path "$env:TEMP\autounattend.xml" -Force | Out-Null
 # user input move autounattend to USB
-$file = "$env:C:\Windows\Temp\autounattend.xml"
+$file = "$env:SystemDrive\Windows\Temp\autounattend.xml"
 $destination = Read-Host -prompt "Enter USB Drive Letter" 
 $destination += ":\"
 Move-Item -Path $file -Destination $destination -Force
