@@ -13,9 +13,9 @@ New-Item -Path "$env:USERPROFILE\AppData\Local" -Name "Temp" -ItemType Directory
 # open %temp% folder
 Start-Process $env:TEMP
 # clear temp folder
-Remove-Item -Path "$env:C:\Windows\Temp" -Recurse -Force -ErrorAction SilentlyContinue | Out-Null
-New-Item -Path "$env:C:\Windows" -Name "Temp" -ItemType Directory -ErrorAction SilentlyContinue | Out-Null
+Remove-Item -Path "$env:SystemDrive\Windows\Temp" -Recurse -Force -ErrorAction SilentlyContinue | Out-Null
+New-Item -Path "$env:SystemDrive\Windows" -Name "Temp" -ItemType Directory -ErrorAction SilentlyContinue | Out-Null
 # open temp folder
-Start-Process $env:C:\Windows\Temp
+Start-Process $env:SystemDrive\Windows\Temp
 # open disk cleanup
 Start-Process cleanmgr.exe
