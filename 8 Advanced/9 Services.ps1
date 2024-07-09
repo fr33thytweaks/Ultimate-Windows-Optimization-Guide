@@ -39,6 +39,39 @@
     Start-Process powershell -args "-win 1 -nop -c `n$V `$env:R=(gi `$key -ea 0).getvalue(`$id)-join''; iex `$env:R" -verb runas -Wait
     }
 
+try {
+$safeBoot = Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\SafeBoot\Option" -ErrorAction Stop
+} catch {
+# check if the volume shadow copy service (vss) is set to manual
+$service = Get-Service -Name VSS
+if ($service.StartType -eq "Manual") {
+Write-Host "Create a restore point . . ."
+$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+# open system protection
+Start-Process "C:\Windows\System32\control.exe" -ArgumentList "sysdm.cpl ,4"
+Write-Host ""
+Pause
+Clear-Host
+Write-Host "Restarting To Safe Mode: Press any key to restart . . ."
+$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+# Toggle safe boot
+cmd /c "bcdedit /set {current} safeboot minimal >nul 2>&1"
+# Restart
+shutdown -r -t 00
+exit
+} else {
+Clear-Host
+Write-Host "Restarting To Safe Mode: Press any key to restart . . ."
+$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+# Toggle safe boot
+cmd /c "bcdedit /set {current} safeboot minimal >nul 2>&1"
+# Restart
+shutdown -r -t 00
+exit
+}
+}
+
+    Clear-Host
     Write-Host "1. Services: Off"
     Write-Host "2. Services: Default"
     while ($true) {
@@ -59,17 +92,6 @@ Write-Host "If Windows fails to boot or log in after applying this script," -For
 Write-Host "please access your restore point from the advanced setup recovery menu." -ForegroundColor Red
 Write-Host ""
 Pause
-Clear-Host
-# check if the volume shadow copy service (vss) is set to manual
-$service = Get-Service -Name VSS
-if ($service.StartType -eq "Manual") {
-Write-Host "Create a restore point . . ."
-$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-# open system protection
-Start-Process "C:\Windows\System32\control.exe" -ArgumentList "sysdm.cpl ,4"
-Write-Host ""
-Pause
-}
 Clear-Host
 Write-Host "Services: Off . . ."
 # create reg file
@@ -909,8 +931,12 @@ Regedit.exe /S "$env:TEMP\ServicesOff.reg"
 RunAsTI powershell "-nologo -windowstyle hidden -command $ServicesOff"
 Timeout /T 5 | Out-Null
 Clear-Host
-Write-Host "Restart to apply . . ."
+Write-Host "Press any key to restart . . ."
 $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+# toggle normal boot
+cmd /c "bcdedit /deletevalue safeboot >nul 2>&1"
+# restart
+shutdown -r -t 00
 exit
 
       }
@@ -1749,8 +1775,12 @@ Regedit.exe /S "$env:TEMP\ServicesOn.reg"
 RunAsTI powershell "-nologo -windowstyle hidden -command $ServicesOn"
 Timeout /T 5 | Out-Null
 Clear-Host
-Write-Host "Restart to apply . . ."
+Write-Host "Press any key to restart . . ."
 $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+# toggle normal boot
+cmd /c "bcdedit /deletevalue safeboot >nul 2>&1"
+# restart
+shutdown -r -t 00
 exit
 
       }
