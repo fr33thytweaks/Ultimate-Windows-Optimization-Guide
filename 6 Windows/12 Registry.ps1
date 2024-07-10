@@ -1031,24 +1031,6 @@ E0,F6,C5,D5,0E,CA,50,00,00
 
 
 
-; GRAPHICS 
-; enable mpo (multi plane overlay)
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\Dwm]
-"OverlayTestMode"=-
-
-; games scheduling (performance)
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games]
-"Affinity"=dword:00000000
-"Background Only"="False"
-"Clock Rate"=dword:00002710
-"GPU Priority"=dword:00000008
-"Priority"=dword:00000006
-"Scheduling Category"="High"
-"SFIO Priority"="High"
-
-
-
-
 ; POWER
 ; unpark cpu cores 
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Power\PowerSettings\54533251-82be-4824-96c1-47b60b740d00\0cc5b647-c1df-4637-891a-dec35c318583]
@@ -1058,11 +1040,6 @@ E0,F6,C5,D5,0E,CA,50,00,00
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling]
 "PowerThrottlingOff"=dword:00000001
 
-; network throttling & system responsiveness
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile]
-"NetworkThrottlingIndex"=dword:ffffffff
-"SystemResponsiveness"=dword:00000000
-
 ; disable hibernate
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power]
 "HibernateEnabled"=dword:00000000
@@ -1071,10 +1048,6 @@ E0,F6,C5,D5,0E,CA,50,00,00
 ; disable fast boot
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Power]
 "HiberbootEnabled"=dword:00000000
-
-; fix timer resolution
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\kernel]
-"GlobalTimerResolutionRequests"=dword:00000001
 
 
 
@@ -1138,7 +1111,7 @@ E0,F6,C5,D5,0E,CA,50,00,00
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\DriverSearching]
 "SearchOrderConfig"=dword:00000000
 
-; mouse fix 
+; mouse fix (no accel with epp on)
 [HKEY_CURRENT_USER\Control Panel\Mouse]
 "MouseSensitivity"="10"
 "SmoothMouseXCurve"=hex:\
@@ -2147,24 +2120,6 @@ Windows Registry Editor Version 5.00
 
 
 
-; GRAPHICS 
-; mpo (multi plane overlay)
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\Dwm]
-"OverlayTestMode"=-
-
-; games scheduling
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games]
-"Affinity"=dword:00000000
-"Background Only"="False"
-"Clock Rate"=dword:00002710
-"GPU Priority"=dword:00000008
-"Priority"=dword:00000002
-"Scheduling Category"="Medium"
-"SFIO Priority"="Normal"
-
-
-
-
 ; POWER
 ; park cpu cores 
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Power\PowerSettings\54533251-82be-4824-96c1-47b60b740d00\0cc5b647-c1df-4637-891a-dec35c318583]
@@ -2172,11 +2127,6 @@ Windows Registry Editor Version 5.00
 
 ; power throttling
 [-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling]
-
-; network throttling & system responsiveness
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile]
-"NetworkThrottlingIndex"=dword:0000000a
-"SystemResponsiveness"=dword:00000014
 
 ; hibernate
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power]
@@ -2186,10 +2136,6 @@ Windows Registry Editor Version 5.00
 ; fast boot
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Power]
 "HiberbootEnabled"=dword:00000001
-
-; timer resolution 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\kernel]
-"GlobalTimerResolutionRequests"=-
 
 
 
@@ -2252,7 +2198,7 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\DriverSearching]
 "SearchOrderConfig"=dword:00000001
 
-; mouse
+; mouse (default accel with epp on)
 [HKEY_CURRENT_USER\Control Panel\Mouse]
 "MouseSensitivity"="10"
 "SmoothMouseXCurve"=hex:00,00,00,00,00,00,00,00,15,6e,00,00,00,00,00,00,00,40,\
