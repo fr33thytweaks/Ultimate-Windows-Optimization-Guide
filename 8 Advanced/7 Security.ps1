@@ -6,7 +6,7 @@
 	$Host.PrivateData.ProgressBackgroundColor = "Black"
     $Host.PrivateData.ProgressForegroundColor = "White"
     Clear-Host
-	
+
     function RunAsTI($cmd, $arg) {
     $id = 'RunAsTI'; $key = "Registry::HKU\$(((whoami /user)-split' ')[-1])\Volatile Environment"; $code = @'
     $I=[int32]; $M=$I.module.gettype("System.Runtime.Interop`Services.Mar`shal"); $P=$I.module.gettype("System.Int`Ptr"); $S=[string]
@@ -78,12 +78,6 @@ Clear-Host
 Write-Host "Step: One. Please wait . . ."
 # disable exploit protection, leaving control flow guard cfg on for vanguard anticheat
 cmd /c "reg add `"HKLM\SYSTEM\ControlSet001\Control\Session Manager\kernel`" /v `"MitigationOptions`" /t REG_BINARY /d `"222222000001000000000000000000000000000000000000`" /f >nul 2>&1"
-Timeout /T 2 | Out-Null
-# disable exploit protection with RunAsTI, leaving control flow guard cfg on for vanguard anticheat
-$ExploitProtection = @'
-cmd /c "reg add `"HKLM\SYSTEM\ControlSet001\Control\Session Manager\kernel`" /v `"MitigationOptions`" /t REG_BINARY /d `"222222000001000000000000000000000000000000000000`" /f >nul 2>&1"
-'@
-RunAsTI powershell "-nologo -windowstyle hidden -command $ExploitProtection"
 Timeout /T 2 | Out-Null
 # create reg file
 $MultilineComment = @"
