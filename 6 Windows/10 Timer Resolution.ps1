@@ -224,8 +224,6 @@ Remove-Item "$env:SystemDrive\Windows\SetTimerResolutionService.cs" -ErrorAction
 New-Service -Name "Set Timer Resolution Service" -BinaryPathName "$env:SystemDrive\Windows\SetTimerResolutionService.exe" -ErrorAction SilentlyContinue | Out-Null
 Set-Service -Name "Set Timer Resolution Service" -StartupType Auto -ErrorAction SilentlyContinue | Out-Null
 Set-Service -Name "Set Timer Resolution Service" -Status Running -ErrorAction SilentlyContinue | Out-Null
-# fix timer resolution regedit
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\kernel" /v "GlobalTimerResolutionRequests" /t REG_DWORD /d "1" /f | Out-Null
 # start taskmanager
 Start-Process taskmgr.exe
 exit
@@ -240,8 +238,6 @@ Set-Service -Name "Set Timer Resolution Service" -Status Stopped -ErrorAction Si
 sc.exe delete "Set Timer Resolution Service" | Out-Null
 # delete file
 Remove-Item "$env:SystemDrive\Windows\SetTimerResolutionService.exe" -Force -ErrorAction SilentlyContinue | Out-Null
-# timer resolution regedit
-cmd /c "reg delete `"HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\kernel`" /v `"GlobalTimerResolutionRequests`" /f >nul 2>&1"
 # start taskmanager
 Start-Process taskmgr.exe
 exit
