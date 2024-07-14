@@ -100,6 +100,7 @@ Windows Registry Editor Version 5.00
 
 ; W10 & W11 SERVICES OFF
 ; graphic driver & defender services left out.
+; sppsvc set to auto for windows activation. (can disable).
 ; seclogon left out, as it will always enable itself. (can disable).
 ; appxsvc & TextInputManagementService left out, needed for w11. (w10 can disable).
 ; SENS & gpsvc left out, needed for multiple account logins. (single account can disable).
@@ -657,7 +658,7 @@ Windows Registry Editor Version 5.00
 "Start"=dword:00000004
 
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\sppsvc]
-"Start"=dword:00000004
+"Start"=dword:00000002
 
 [HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\SSDPSRV]
 "Start"=dword:00000004
