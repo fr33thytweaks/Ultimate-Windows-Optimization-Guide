@@ -24,17 +24,17 @@ cmd /c "powercfg /SETACTIVE 99999999-9999-9999-9999-999999999999 >nul 2>&1"
 $output = powercfg /L
 $powerPlans = @()
 foreach ($line in $output) {
-    #extract guid manually to avoid lang issues
-    if ($line -match ':') {
-        $parse = $line -split ':'
-        $index = $parse[1].Trim().indexof('(')
-        $guid = $parse[1].Trim().Substring(0, $index)
-        $powerPlans += $guid
-    }
+# extract guid manually to avoid lang issues
+if ($line -match ':') {
+$parse = $line -split ':'
+$index = $parse[1].Trim().indexof('(')
+$guid = $parse[1].Trim().Substring(0, $index)
+$powerPlans += $guid
+}
 }
 # delete all powerplans
 foreach ($plan in $powerPlans) {
-    cmd /c "powercfg /delete $plan" | Out-Null
+cmd /c "powercfg /delete $plan" | Out-Null
 }
 Clear-Host
 # disable hibernate
