@@ -43,13 +43,12 @@
 
 Write-Host "Installing: DDU . . ."
 # download ddu
-Get-FileFromWeb -URL "https://ftp.nluug.nl/pub/games/PC/guru3d/ddu/[Guru3D.com]-DDU.zip" -File "$env:TEMP\DDU.zip"
+Get-FileFromWeb -URL "https://www.wagnardsoft.com/DDU/download/DDU%20v18.0.7.8.exe" -File "$env:TEMP\DDU.exe"
 Clear-Host
 Write-Host "Extract: DDU . . ."
-# extract files
-Expand-Archive "$env:TEMP\DDU.zip" -DestinationPath "$env:TEMP" -ErrorAction SilentlyContinue
 # start ddu extractor
-Start-Process -wait "$env:TEMP\DDU v18.0.7.8.exe"
+Start-Process -wait "$env:TEMP\DDU.exe"
+Clear-Host
 # create config for ddu
 $MultilineComment = @"
 <?xml version="1.0" encoding="utf-8"?>
