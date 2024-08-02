@@ -42,21 +42,10 @@
     }
 
 Write-Host "Installing: TM5 . . ."
-# allow powershell to download tm5
-Add-Type @"
-using System.Net;
-using System.Security.Cryptography.X509Certificates;
-public class TrustAllCertsPolicy : ICertificatePolicy {public bool CheckValidationResult(ServicePoint srvPoint, X509Certificate certificate, WebRequest request, int certificateProblem) {return true;}}
-"@
-[System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy
 # download tm5
-$result = Get-FileFromWeb -URL "https://testmem.tz.ru/tm5.rar" -File "$env:TEMP\TM5.rar"
-# download 7zip
-Get-FileFromWeb -URL "https://www.7-zip.org/a/7z2301-x64.exe" -File "$env:TEMP\7-Zip.exe"
-# install 7zip
-Start-Process -wait "$env:TEMP\7-Zip.exe" /S
-# extract files with 7zip
-cmd /c "C:\Program Files\7-Zip\7z.exe" x "$env:TEMP\TM5.rar" -o"$env:TEMP" -y | Out-Null
+$result = Get-FileFromWeb -URL "https://raw.githubusercontent.com/fr33thytweaks/files/main/TM5.zip" -File "$env:TEMP\TM5.zip"
+# extract files
+Expand-Archive "$env:TEMP\TM5.zip" -DestinationPath "$env:TEMP\TM5" -ErrorAction SilentlyContinue
 # create config for tm5
 $MultilineComment = @"
 Memory Test config file v0.02
